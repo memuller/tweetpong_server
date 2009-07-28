@@ -23,9 +23,9 @@ describe TweetPong::Stage::Object do
     end
   end
 
-  it "must have a tick method that moves the object by an tick" do 
+  it "must have a tick method that moves the object by an tick" do
     @obj.x_speed = 30 and original_x = @obj.x
-    @obj.tick!
+    @obj.tick
     @obj.x.should == original_x + 30.0/@obj.decay_factor
   end
 

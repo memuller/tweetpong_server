@@ -3,12 +3,10 @@ require 'eventmachine'
 
 $/ = '\0'
 $games = []
-$i = 0
+
 module TweetPongConnection
   def post_init
     puts "new connection started with #{self.class} and #{self.id}"
-    $games << "teste #{$i}"
-    $i += 1
   end
 
   def unbind
