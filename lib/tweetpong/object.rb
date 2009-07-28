@@ -1,15 +1,30 @@
 class TweetPong::Stage::Object
-  attr_reader :x, :y, :x_speed, :y_speed, :fixed, :decay_factor, :gravity
-
-  %w(x y x_speed y_speed gravity decay_factor).each do |var|
+  attr_reader :x, :y, :x_speed, :y_speed, :fixed, :decay_factor, :gravity, :width, :height
+  attr_accessor :centered_register
+  %w(x y x_speed y_speed gravity decay_factor width height).each do |var|
     class_eval("def #{var}= value; @#{var} = value.to_f; end")
   end
 
   def initialize
     @fixed = true unless defined? @fixed
+    @centered_register = false unless defined? @centered_register
     @x = @y = @x_speed = @y_speed = 0.to_f
+    @width = @height = 1.0 unless defined? @width or defined? @height
     @decay_factor ||= 5.to_f
     @gravity ||= 0.to_f
+  end
+
+  def from_center axis
+    raise TypeError, 'Should receive an measure of :w or :h' unless [:w, :h].include? axis
+    if axis == :w
+      @centered_register ? @width/2 : @width
+    else
+      @centered_register ? @height/2 : @height
+    end
+  end
+
+  def round?
+    @centered_register and @width == @height
   end
 
   def movable?

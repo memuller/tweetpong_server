@@ -29,3 +29,32 @@ class TweetPong::Stage
 
 end
 
+class TweetPong::Stage::Trigger
+  attr_accessor :condition
+  attr_reader :ran, :evaluated
+
+  def initialize condition, &block
+    raise ArgumentError, 'Needs a boolean condition' unless [true,false].include? condition
+    raise ArgumentError, 'Needs an action, as a proc to run' unless block and block.is_a? Proc
+    @ran = @evaluated = 0
+    @condition = condition and @block = block
+  end
+
+  def evaluate
+    @evaluated += 1
+    if condition
+      @block.call and @ran += 1
+    else
+      return nil
+    end
+
+  end
+
+
+
+
+
+
+
+end
+

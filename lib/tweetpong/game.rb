@@ -1,0 +1,4 @@
+class TweetPong::Game
+
+end
+

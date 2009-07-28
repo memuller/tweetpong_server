@@ -2,6 +2,7 @@ class TweetPong::Stage::Ball < TweetPong::Stage::Object
 
   def initialize
     @fixed = false
+    @centered_register = true
     super
   end
 

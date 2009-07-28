@@ -13,7 +13,11 @@ describe TweetPong::Stage::Ball do
     @ball.movable?.should be true
   end
 
-  describe "its cute bouncing properties" do
+  it "should be center-registered" do
+    @ball.centered_register.should be true
+  end
+
+  describe "its bounce method" do
     before :each do
       @ball.x = 0 and @ball.x_speed = 50
     end
