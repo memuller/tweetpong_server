@@ -19,5 +19,13 @@ class TweetPong::Stage
     end
   end
 
+  def tick
+    @objects.each do |object|
+      if object.movable?
+        object.tick
+      end
+    end
+  end
+
 end
 

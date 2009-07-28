@@ -14,7 +14,6 @@ module TweetPongConnection
   end
 
   def receive_data data
-    debugger
     send_data "#{data}"
   end
 
