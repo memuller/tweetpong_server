@@ -1,7 +1,7 @@
 = TweetPongServer
 *Copyright*:: Canção Nova Research & Development Team, (c) 2009 Fundação João Paulo II
 *Author*::    Matheus Elias Muller
-*This software is active development. Most of its intended functions are still not implemented.*
+<b>This software is active development. Most of its intended functions are still not implemented.</b>
 
 == The short of it
 This is the server system used in an upcoming online, two-player game. Such game is being as developed as a proof-of-concept of augmented reality technologies.
