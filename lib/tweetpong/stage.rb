@@ -1,20 +1,18 @@
 class TweetPong::Stage
-
-  attr_reader :objects, :balls, :walls
+  attr_reader :objects, :balls, :walls, :triggers
 
   def initialize
-    @objects = @balls = @walls = []
-
+    @objects = @balls = @walls = @triggers = []
   end
 
   def associate *items
     [*items].each do |target|
-      if target.instance_of? TweetPong::Stage::Object or target.class.superclass == TweetPong::Stage::Object
+      if [TweetPong::Stage::Object, TweetPong::Stage::Trigger].include? target.class or target.class.superclass == TweetPong::Stage::Object
         klass_name = target.class.to_s.split('::').last
         @objects << target
         instance_eval("@#{klass_name.downcase + 's'}") << target unless klass_name == 'Object'
       else
-        raise TypeError, 'Associatable objects must be a mixin of TweetPong::Stage::Object'
+        raise TypeError, 'Associatable objects must be a mixin of Stage::Object or a Stage::Trigger.'
       end
     end
   end

@@ -47,5 +47,6 @@ describe TweetPong::Stage::Trigger do
     @trigger.condition = false and @trigger.evaluate
     @trigger.ran.should == old_n + 1
   end
+
 end
 
