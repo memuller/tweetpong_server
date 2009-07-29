@@ -47,14 +47,7 @@ class TweetPong::Stage::Trigger
     else
       return nil
     end
-
   end
-
-
-
-
-
-
 
 end
 

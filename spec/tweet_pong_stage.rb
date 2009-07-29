@@ -29,7 +29,27 @@ describe TweetPong::Stage do
       @stage.objects.include?(wall).should be true
     end
 
+    it 'should associate with a bonus item' do
+      bonus = TweetPong::Stage::Bonus.new and @stage.associate bonus
+      @stage.bonus.first.should be bonus
+      @stage.objects.include?(bonus).should be true
+    end
+
+    it 'should associate with a trigger' do
+      trigger = TweetPong::Stage::Trigger.new(true){2+2}
+      @stage.associate trigger
+      @stage.triggers.first.should be trigger
+    end
   end
+
+  it "should have a check method that evaluates all triggers" do
+    @stage.associate TweetPong::Stage::Trigger.new(true){2+2}, TweetPong::Stage::Trigger.new(false){2+2}
+    @stage.check_triggers
+    @stage.triggers.first.ran.should == 1
+    @stage.trigger.last.ran.should == 0
+    [@stage.triggers.last.evaluated, @stage.triggers.last.evaluated].select{|n| n == 1}.should == 1
+  end
+
 
   it "should have a tick method that ticks all objects" do
     x_array = []
