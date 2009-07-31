@@ -21,12 +21,8 @@ class TweetPong::Player
   def score! kind = :points
     raise ArgumentError, 'Scores are only :points, :sets and :games.' unless kind.is_a? Symbol and [:points, :sets, :games].include? kind
     @scores[kind] += 1
-    case kind
-      when :points
-        @scores[:sets] += 1 and @scores[:points] = 0 if @scores[:points] >= 5
-      when :sets
-        @scores[:games] += 1 and @scores[:sets] = 0 if @scores[:sets] >= 3
-    end
+    @scores[:sets] += 1 and @scores[:points] = 0 if @scores[:points] >= 5
+    @scores[:games] += 1 and @scores[:sets] = 0 if @scores[:sets] >= 3
   end
 
 end

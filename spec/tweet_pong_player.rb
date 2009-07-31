@@ -50,25 +50,25 @@ describe TweetPong::Player do
   describe "has methods to match players together" do
 
     before :all do
-      %w(a b c).each_with_index { |prefix,i| eval("user_#{prefix} = TweetPong::User.new(i == 0 ? 1 : 2)") }
+      %w(a b c).each_with_index { |prefix,i| instance_eval("@user_#{prefix} = TweetPong::Player.new(i == 0 ? 1 : 2)") }
     end
 
     it "should test if users match" do
-      user_a.match(user_b).should_be false
-      user_b.match(user_c).should_be true
+      @user_a.match(@user_b).should_be false
+      @user_b.match(@user_c).should_be true
     end
 
     it "should not match with itself" do
-      user_a.match(user_a).should_be false
+      @user_a.match(@user_a).should_be false
     end
 
     it "should match the users, returning them in order (challenger/challenged)" do
-      result = user_b.match!(user_c)
-      result.should be == [user_b, user_c]
-      user_b.challenger?.should be true
-      user_c.challenger?.should be false
-      user_b.challenger = false and user_b.challenger = true
-      user_b.match!(user_c).should be == [user_c, user_b]
+      result = @user_b.match!(@user_c)
+      result.should be == [@user_b, @user_c]
+      @user_b.challenger?.should be true
+      @user_c.challenger?.should be false
+      @user_b.challenger = false and @user_b.challenger = true
+      @user_b.match!(@user_c).should be == [@user_c, @user_b]
     end
   end
 end
