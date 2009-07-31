@@ -2,7 +2,7 @@ class TweetPong::Stage
   attr_reader :objects, :balls, :walls, :triggers, :bonus
 
   def initialize
-    @objects = [] and @balls = [] and @walls = [] and @triggers = [] and @plataforms = [] and @bonus = []
+    %w(objects balls walls triggers plataforms bonus).each { |obj| instance_eval("@#{obj} = []") }
   end
 
   def associate *items
