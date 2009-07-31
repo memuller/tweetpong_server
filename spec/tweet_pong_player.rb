@@ -2,11 +2,11 @@ require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
 describe TweetPong::Player do
   before :all do
-    @user = TweetPong::User.new(121212)
+    @user = TweetPong::Player.new(121212)
   end
   it "should have an game ID" do
-    lambda{TweetPong::User.new}.should raise_error
-    @user.game_id.should be_a_instance_of Integer
+    lambda{TweetPong::Player.new}.should raise_error
+    @user.game_id.should be_a_kind_of Integer
   end
 
   it "should receive a login name" do
@@ -21,6 +21,7 @@ describe TweetPong::Player do
   end
 
   describe "its score control methods" do
+    before(:each){@user = TweetPong::Player.new(121212)}
     it "should have scores for points, sets and games" do
       @user.score.should be == 0
       @user.score(:sets).should be == 0
