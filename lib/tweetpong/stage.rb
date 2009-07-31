@@ -1,16 +1,17 @@
 class TweetPong::Stage
-  attr_reader :objects, :balls, :walls, :triggers
+  attr_reader :objects, :balls, :walls, :triggers, :bonus
 
   def initialize
-    @objects = @balls = @walls = @triggers = []
+    @objects = [] and @balls = [] and @walls = [] and @triggers = [] and @plataforms = [] and @bonus = []
   end
 
   def associate *items
     [*items].each do |target|
       if [TweetPong::Stage::Object, TweetPong::Stage::Trigger].include? target.class or target.class.superclass == TweetPong::Stage::Object
         klass_name = target.class.to_s.split('::').last
+        klass_name.chop! if klass_name.end_with? 's'
         @objects << target
-        instance_eval("@#{klass_name.downcase + 's'}") << target unless klass_name == 'Object'
+        instance_eval("@#{(klass_name.end_with?('s') ? klass_name.chop! : klass_name).downcase}s") << target unless klass_name == 'Object'
       else
         raise TypeError, 'Associatable objects must be a mixin of Stage::Object or a Stage::Trigger.'
       end
@@ -25,6 +26,12 @@ class TweetPong::Stage
     end
   end
 
+  def check_triggers
+    @triggers.each do |trigger|
+      trigger.evaluate
+    end
+  end
+
 end
 
 class TweetPong::Stage::Trigger
@@ -34,7 +41,8 @@ class TweetPong::Stage::Trigger
   def initialize condition, &block
     raise ArgumentError, 'Needs a boolean condition' unless [true,false].include? condition
     raise ArgumentError, 'Needs an action, as a proc to run' unless block and block.is_a? Proc
-    @ran = @evaluated = 0
+    @ran = 0
+    @evaluated = 0
     @condition = condition and @block = block
   end
 

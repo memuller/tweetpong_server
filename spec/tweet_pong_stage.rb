@@ -46,8 +46,8 @@ describe TweetPong::Stage do
     @stage.associate TweetPong::Stage::Trigger.new(true){2+2}, TweetPong::Stage::Trigger.new(false){2+2}
     @stage.check_triggers
     @stage.triggers.first.ran.should == 1
-    @stage.trigger.last.ran.should == 0
-    [@stage.triggers.last.evaluated, @stage.triggers.last.evaluated].select{|n| n == 1}.should == 1
+    @stage.triggers.last.ran.should == 0
+    [@stage.triggers.first.evaluated, @stage.triggers.last.evaluated].select{|n| n == 1}.size.should == 2
   end
 
 
