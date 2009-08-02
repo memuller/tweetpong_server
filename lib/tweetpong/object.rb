@@ -5,13 +5,16 @@ class TweetPong::Stage::Object
     class_eval("def #{var}= value; @#{var} = value.to_f; end")
   end
 
-  def initialize
+  def initialize args={}
     @fixed = true unless defined? @fixed
     @centered_register = false unless defined? @centered_register
     @x = @y = @x_speed = @y_speed = 0.to_f
     @width = @height = 1.0 unless defined? @width or defined? @height
     @decay_factor ||= 5.to_f
     @gravity ||= 0.to_f
+    args.keys.each do |key|
+      instance_variable_set "@#{key.to_s}", args[key]
+    end
   end
 
   def from_center axis
