@@ -1,7 +1,7 @@
 class TweetPong::Stage::Wall < TweetPong::Stage::Object
-  def initialize
+  def initialize args = {}
     @fixed = true
-    super
+    super args
   end
 end
 
