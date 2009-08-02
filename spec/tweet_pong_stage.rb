@@ -58,6 +58,44 @@ describe TweetPong::Stage do
     @stage.objects.each_with_index{|obj,i| obj.x.should ==  x_array[i] + 50}
   end
 
+  it "should have field dimensions" do
+    @stage.width.should be_a_kind_of Integer
+    @stage.height.should be_a_kind_of Integer
+  end
+
+  describe 'initialized objects:' do
+    describe "its walls" do
+      before :each do
+        @stage = TweetPong::Stage.new
+        @stage.place_scenario
+        for i in 1..4 do
+          instance_eval("@wall#{i} = @stage.walls[#{i-1}]")
+        end
+      end
+
+      it "should be four" do
+        @stage.walls.size.should be == 4
+      end
+
+      it "should be placed properly" do
+        @wall1.x.should be == 0 and @wall1.y.should be == 0
+        @wall1.width.should be == @stage.width and @wall1.height.should be == 0
+      end
+
+    end
+  end
+
+
+
+
+
+
+
+
+
+
+
+
 
 end
 
