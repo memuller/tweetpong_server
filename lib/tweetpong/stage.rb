@@ -10,7 +10,7 @@ class TweetPong::Stage
       if [TweetPong::Stage::Object, TweetPong::Stage::Trigger].include? target.class or target.class.superclass == TweetPong::Stage::Object
         klass_name = target.class.to_s.split('::').last
         klass_name.chop! if klass_name.end_with? 's'
-        @objects << target
+        @objects << target unless klass_name == 'Trigger'
         instance_eval("@#{(klass_name.end_with?('s') ? klass_name.chop! : klass_name).downcase}s") << target unless klass_name == 'Object'
       else
         raise TypeError, 'Associatable objects must be a mixin of Stage::Object or a Stage::Trigger.'

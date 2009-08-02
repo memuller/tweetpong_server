@@ -4,9 +4,14 @@ describe TweetPong::Player do
   before :all do
     @user = TweetPong::Player.new(121212)
   end
+
   it "should have an game ID" do
     lambda{TweetPong::Player.new}.should raise_error
     @user.game_id.should be_a_kind_of Integer
+  end
+
+  it "should have a logged_at timestamp" do
+    @user.logged_at.should be_a_kind_of Time
   end
 
   it "should receive a login name" do
@@ -54,12 +59,12 @@ describe TweetPong::Player do
     end
 
     it "should test if users match" do
-      @user_a.match(@user_b).should_be false
-      @user_b.match(@user_c).should_be true
+      @user_a.matches?(@user_b).should be false
+      @user_b.matches?(@user_c).should be true
     end
 
     it "should not match with itself" do
-      @user_a.match(@user_a).should_be false
+      @user_a.matches?(@user_a).should be false
     end
 
     it "should match the users, returning them in order (challenger/challenged)" do
@@ -67,8 +72,6 @@ describe TweetPong::Player do
       result.should be == [@user_b, @user_c]
       @user_b.challenger?.should be true
       @user_c.challenger?.should be false
-      @user_b.challenger = false and @user_b.challenger = true
-      @user_b.match!(@user_c).should be == [@user_c, @user_b]
     end
   end
 end
