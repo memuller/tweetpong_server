@@ -13,7 +13,6 @@ class TweetPong::Player
 
   def challenger?; @challenger; end
   def challenged?; not @challenger; end
-
   def score kind = :points
     raise ArgumentError, 'Scores are only :points, :sets and :games.' unless [:points, :sets, :games].include? kind
     @scores[kind]
@@ -27,7 +26,7 @@ class TweetPong::Player
 
   def matches? partner
     raise ArgumentError, 'Must pass an instance of Player to match with.' unless partner.is_a? TweetPong::Player
-    return false if self == partner or @username = partner.username
+    return false if self == partner or @username == partner.username
     @game_id == partner.game_id ? true : false
   end
 
@@ -36,7 +35,7 @@ class TweetPong::Player
     return false unless self.matches? partner
     a = [self,partner].sort{|a,b| a.logged_at <=> b.logged_at}
     a.first.challenger = true and a.last.challenger = false
-    a
+    return a
   end
 
 end
