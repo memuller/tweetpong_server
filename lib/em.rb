@@ -144,14 +144,13 @@ class TweetPongConnection < EventMachine::Connection
 
   #checks who starts the set.
   def check_race_winner
-    return @player if not defined? @partner_connection.swap
+    return @player if @partner_connection.swap.nil?
     if @partner_connection.swap < swap
       winner =  @partner
     else
       winner = @player
     end
-    swap = nil and @partner_connection.swap = nil
-    @game.next_state
+    swap_clear
     return winner
 
   end
