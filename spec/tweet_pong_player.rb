@@ -26,7 +26,6 @@ describe TweetPong::Player do
   end
 
   describe "its score control methods" do
-    before(:each){@user = TweetPong::Player.new(121212)}
     it "should have scores for points, sets and games" do
       @user.score.should be == 0
       @user.score(:sets).should be == 0
@@ -55,7 +54,10 @@ describe TweetPong::Player do
   describe "has methods to match players together" do
 
     before :all do
-      %w(a b c).each_with_index { |prefix,i| instance_eval("@user_#{prefix} = TweetPong::Player.new(i == 0 ? 1 : 2)") }
+      %w(a b c).each_with_index do |prefix,i|
+        instance_eval("@user_#{prefix} = TweetPong::Player.new(i == 0 ? 1 : 2)")
+        instance_eval("@user_#{prefix}.username = 'test#{prefix}'")
+      end
     end
 
     it "should test if users match" do
