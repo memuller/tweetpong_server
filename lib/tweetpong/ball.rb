@@ -16,4 +16,24 @@ class TweetPong::Stage::Ball < TweetPong::Stage::Object
   end
 
 end
+=begin
+controlSpeed = 10
+if (ball.y > ricochet.y && (ball.x > ricochet.x  && ball.x < (ricochet.x + ricochet.width))) {
+
+				ball.y = ricochet.y;
+				//speedy *= bounce;
+				var half = ricochet.width / 2;
+				var colisionx =   (ricochet.x + ricochet.width / 2) - ball.x;
+				speedx = - Math.round((colisionx * controlSpeed / half));
+
+
+				speedy = speedx.toString().indexOf("-") != -1 ? controlSpeed + speedx : controlSpeed - speedx;
+				speedy *= bounce;
+
+				if(speedy == 0){
+					speedy = controlSpeed;
+				}
+
+			}
+=end
 

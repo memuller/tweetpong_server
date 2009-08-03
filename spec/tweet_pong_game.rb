@@ -1,20 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
-module TweetPong::Game::SpecHelpers
-  def create_game kind = :valid
-    case kind
-      when :valid
-        @player1 = TweetPong::Player.new(2111, :username => 'test1')
-        @player2 = TweetPong::Player.new(2111, :username => 'test2')
-        @game = TweetPong::Game.new(@player1,@player2)
-    end
-  end
-end
-
+include TweetPong::Game::SpecHelpers
 describe TweetPong::Game, 'initializing stage:' do
-  include TweetPong::Game::SpecHelpers
-  before :each do
-    create_game :valid
-  end
+  before(:each){create_game :valid}
 
   it "should be created with a fixed number of two players, fails otherwise" do
     lambda{TweetPong::Game.new}.should raise_error
@@ -34,11 +21,9 @@ end
 
 describe TweetPong::Game, 'state machine:' do
   include TweetPong::Game::SpecHelpers
-  before :each do
-    create_game :valid
-  end
 
   context 'the states in general' do
+    before(:each){ create_game :valid }
 
     it "should be ordered in an array" do
       @game.states.should be_a_kind_of Array
@@ -55,6 +40,7 @@ describe TweetPong::Game, 'state machine:' do
   end
 
   context 'state-changing behavior' do
+    before(:each){ create_game :valid }
 
     it "should jump to an specific state" do
       @game.jump_state @game.states.last[0]

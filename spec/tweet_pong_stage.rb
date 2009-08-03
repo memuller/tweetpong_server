@@ -22,7 +22,9 @@ describe TweetPong::Stage, 'initializing and associatives behaviors' do
 
 
   context "associating and registering with all valid objects" do
-
+  before :each do
+    @stage = TweetPong::Stage.new
+  end
     it 'should associate with a ball' do
       ball = TweetPong::Stage::Ball.new and @stage.associate ball
       @stage.balls.first.should be ball
