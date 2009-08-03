@@ -1,0 +1,4 @@
+module TweetPong::Protocol
+
+end
+
