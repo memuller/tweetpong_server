@@ -11,8 +11,6 @@ class TweetPongConnection < EventMachine::Connection
   include TweetPong::Protocol
   attr_accessor :username, :game_id, :partner_connection, :partner, :swap
 
-
-
   def receive_data data
     #game not started yet, queue/match players.
     if data.include?('game_id') and data.include?('username') and not defined? @game
@@ -26,10 +24,15 @@ class TweetPongConnection < EventMachine::Connection
             if @partner_connection.swap == 'ready'
               swap_clear
               @game.next_state
-              send_both 'race start'
+              send_both 'race started. NEXT: send me a packet when you finish your race. The first player to do so begins the set.'
             end
           when :race_started
-
+            @swap = Time.now
+            winner = check_race_winner
+            send_both "#{winner.username} starts the set. set ready. NEXT: send me a packet when ready to begin playing."
+            @game.next_state
+          when :set_starting
+            #both must be ready for the set to start. best create a method to check this via swap.
         end
       else
         send_error :required_info_not_send
