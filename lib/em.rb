@@ -40,6 +40,23 @@ class TweetPongConnection < EventMachine::Connection
     end
   end
 
+  #adds connection to the pool.
+  def post_init
+    $connections << self
+    send_data 'connection ok'
+  end
+
+  #sends a message to the partner if the game is running, kills the game and both connections.
+  def unbind
+  end
+
+  #send data to both peers in a game.
+  def send_both data, *args
+    raise TypeError unless defined? @partner_connection
+    self.send_data data
+    @partner_connection.send_data data
+  end
+
   def send_error kind, *args
     send_data "error - #{kind.to_s}"
     case kind
