@@ -21,6 +21,7 @@ class TweetPong::Stage
     end
   end
 
+  #moves all movable objects by and tick.
   def tick
     @objects.each do |object|
       if object.movable?
@@ -29,12 +30,14 @@ class TweetPong::Stage
     end
   end
 
+  #evaluate all trigger conditions.
   def check_triggers
     @triggers.each do |trigger|
       trigger.evaluate
     end
   end
 
+  #places game scenario - walls and plataforms.
   def place_scenario
     associate TweetPong::Stage::Wall.new(:x => 0, :y => 0, :width => width, :height => 0)
     associate TweetPong::Stage::Wall.new(:x => width, :y => 0, :width => 0, :height => height)
