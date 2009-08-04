@@ -32,7 +32,8 @@ class TweetPongConnection < EventMachine::Connection
             send_both "#{winner.username} starts the set. set ready. NEXT: send me a packet when ready to begin playing."
             @game.next_state
           when :set_starting
-            #both must be ready for the set to start. best create a method to check this via swap.
+            if are_ready?
+              send_both "game started! NEXT: send me a packet each frame telling your plataform position."
         end
       else
         send_error :required_info_not_send
@@ -152,7 +153,14 @@ class TweetPongConnection < EventMachine::Connection
     end
     swap_clear
     return winner
+  end
 
+  #checks if both players are ready for something.
+  def are_ready?
+    unless @swap.nil? or @partner_connection.swap.nil?
+      swap_clear; return true
+    else
+      false
   end
 
 end

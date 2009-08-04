@@ -67,9 +67,14 @@ end
 describe TweetPong::Game, 'in-game behavior' do
 
   context "before set begins:" do
-    before(:all){ create_game :valid}
-    it "begins only if the state is :set_starting"
-    it "places the ball on the beggining player's side"
+    before(:each){ create_game :valid}
+    it "begins only if the state is :set_starting" do
+      @game.jump_state :race_ready
+      lambda{@game.start}.should raise_error
+    end
+    it "places the ball on the beggining player's side" do
+      @game.place_ball
+    end
     it "sets ricocheting triggers"
     it "sets triggers to score points for both players"
     it "sets bonus-placement triggers"
