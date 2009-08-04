@@ -1,6 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
-describe TweetPong::Stage, 'initializing and associatives behaviors' do
+describe TweetPong::Stage, 'initializing and associatives behaviors:' do
   before :each do
     @stage = TweetPong::Stage.new
   end
@@ -21,7 +21,7 @@ describe TweetPong::Stage, 'initializing and associatives behaviors' do
   end
 
 
-  context "associating and registering with all valid objects" do
+  context "associating and registering with all valid objects:" do
   before :each do
     @stage = TweetPong::Stage.new
   end
@@ -51,7 +51,7 @@ describe TweetPong::Stage, 'initializing and associatives behaviors' do
   end
 end
 
-describe TweetPong::Stage, 'mid-game behaviors' do
+describe TweetPong::Stage, 'mid-game behaviors:' do
   before :each do
     @stage = TweetPong::Stage.new
   end
@@ -73,7 +73,7 @@ describe TweetPong::Stage, 'mid-game behaviors' do
   end
 end
 
-describe TweetPong::Stage, 'object-placing behaviors' do
+describe TweetPong::Stage, 'object-placing behaviors:' do
 
   context "staging its walls" do
     before :each do
