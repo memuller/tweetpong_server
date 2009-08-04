@@ -6,6 +6,10 @@ class TweetPong::Stage
     raise ArgumentError, 'Must provide width and height as integers' unless width.is_a? Integer and height.is_a? Integer
     %w(objects balls walls triggers plataforms bonus).each { |obj| instance_eval("@#{obj} = []") }
     @width = width and @height = height
+    @gravity = 0
+    @friction = 0
+    @control_speed = 10
+    @bounce = -1
   end
 
   def associate *items
@@ -34,6 +38,40 @@ class TweetPong::Stage
   def check_triggers
     @triggers.each do |trigger|
       trigger.evaluate
+    end
+  end
+=begin
+  if (ball.y > ricochet.y && (ball.x > ricochet.x  && ball.x < (ricochet.x + ricochet.width))) {
+
+				ball.y = ricochet.y;
+				//speedy *= bounce;
+				var half = ricochet.width / 2;
+				var colisionx =   (ricochet.x + ricochet.width / 2) - ball.x;
+				speedx = - Math.round((colisionx * controlSpeed / half));
+
+
+				speedy = speedx.toString().indexOf("-") != -1 ? controlSpeed + speedx : controlSpeed - speedx;
+				speedy *= bounce;
+
+				if(speedy == 0){
+					speedy = controlSpeed;
+				}
+
+			}
+=end
+  #ricochets objects. TODO: spec it.
+  def ricochet obj, surface, axis = :y
+    if axis == :y
+      obj.y = surface.y
+      surface_half = surface.from_center :w
+      colision_x = (surface.x + surface.width / 2) - obj.x
+      x_speed = - (colision_x * @control_speed / surface_half).to_i
+      y_speed = x_speed < 0 ? @control_speed + x_speed : @control_speed - x_speed
+      y_speed = y_speed * @bounce
+      y_speed = @control_speed if y_speed == 0
+      obj.x_speed = x_speed and obj.y_speed = y_speed
+    else
+
     end
   end
 
