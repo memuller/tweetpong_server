@@ -17,8 +17,7 @@ class TweetPong::Stage::Object
     end
   end
 
-  def from_center axis
-    raise TypeError, 'Should receive an measure of :w or :h' unless [:w, :h].include? axis
+  def from_center axis = :w
     if axis == :w
       @centered_register ? @width/2 : @width
     else
