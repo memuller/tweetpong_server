@@ -68,7 +68,6 @@ describe TweetPong::Game, 'in-game behavior' do
 
   context "before set begins:" do
     before(:all){ create_game :valid}
-    it "begins only if given the player that starts with the ball"
     it "begins only if the state is :set_starting"
     it "places the ball on the beggining player's side"
     it "sets ricocheting triggers"
@@ -76,8 +75,20 @@ describe TweetPong::Game, 'in-game behavior' do
     it "sets bonus-placement triggers"
   end
 
-  context "during the game" do
+  context "during the game:" do
+    before(:all){ create_game :valid}
+    it "should be ticking the scenario"
+    it "should be checking triggers with each tick"
+    it "should score points properly"
+  end
 
+  context "with each point:" do
+    before(:all){ create_game :valid}
+    it "should mark the point to the player"
+    it "should score a set after 5 points"
+    it "should start a new set after one ends"
+    it "should score a game after 3 sets"
+    it "should end the game after 3 sets"
   end
 
 
