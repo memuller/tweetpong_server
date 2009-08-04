@@ -64,3 +64,22 @@ describe TweetPong::Game, 'state machine:' do
   end
 end
 
+describe TweetPong::Game, 'in-game behavior' do
+
+  context "before set begins:" do
+    before(:all){ create_game :valid}
+    it "begins only if given the player that starts with the ball"
+    it "begins only if the state is :set_starting"
+    it "places the ball on the beggining player's side"
+    it "sets ricocheting triggers"
+    it "sets triggers to score points for both players"
+    it "sets bonus-placement triggers"
+  end
+
+  context "during the game" do
+
+  end
+
+
+end
+
