@@ -9,3 +9,6 @@ This library is composed of:
 * A socket server that manages the game connections. Uses EventMachine and StatusMachine.
 * An Stage class and its objects, which handles the game scenario and physics rules.
 
+== Here be dragons
+<i>Due to problems with some of the machines where this code is being written, some of it may be uploaded there without being tested (seriously - there may be even syntax erros in it). You've been warned.</i>
+
